@@ -51,3 +51,25 @@ LC_ALL="en_US.UTF-8"
 ```
 
 修改后保存文件，重启VPS即可。
+
+后续操作
+为了防止自动升级
+
+改成离线模式，并修改hosts
+
+echo "127.0.0.1 www.bt.cn" >> /etc/hosts
+
+宝塔降级常见问题
+* Q1：降级后显示宝塔无法启动，但无任何报错
+
+S1：需要将markupsafe==2.0.1添加到panel目录下的requirements.txt文件中并执行/www/server/panel/pyenv/bin/pip3 install -r requirements.txt安装python库后重启面板即可
+
+* Q2：降级后登录宝塔面板时提示密码错误
+
+S2：需要在终端修改宝塔密码
+
+* Q3：降级后登录宝塔面板时无法显示验证码图片或无法下载文件
+
+S3：需要将/www/server/panel/BTPanel/\_\_init\_\_.py文件中的send_file函数中的cache_timeout参数名改为max_age
+最新解决办法：ssh运行：/www/server/panel/pyenv/bin/pip install -U Flask==2.1.2
+重启宝塔面板即可。
